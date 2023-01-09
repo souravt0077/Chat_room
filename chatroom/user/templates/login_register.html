@@ -1,0 +1,54 @@
+{% extends 'main.html' %}
+
+{% block title %}Login/Register{% endblock title %}
+
+{% block content %}
+<style>
+    #message{
+        margin-left:20%;
+        margin-right:20%;
+        margin-top:10px;
+    }
+</style>
+
+
+{% if messages %}
+    {% for message in messages %}
+        <div id='message'>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert" >
+                <small class="alert-heading">{{message}}!
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></small>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
+
+
+{% if page == 'login' %}
+<div> 
+    <h1>Login</h1>
+    <hr>
+    <form method='POST' action=''>
+        {% csrf_token %}
+        <input type='email' name='email' placeholder='Enter Email' />
+        <br>
+        <br>
+        <input type='password' name='password' placeholder="Enter Password" />
+        <br>
+        <br>
+        <input type='submit' value='Login' />
+    </form>
+</div>
+{% else %}
+<div>
+    <h1>Register</h1>
+    <hr>
+    <form method='POST' action=''>
+        {% csrf_token %}
+        
+        <input type='submit' value='Register' />
+    </form>
+</div>
+{% endif %}
+
+{% endblock content %}
