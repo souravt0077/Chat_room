@@ -5,5 +5,20 @@
 {% block content %}
 
 <h1>Hello {{request.user}}</h1>
+<hr>
+<a href={% url 'createroom' %}>Create Room</a>
+<div>
+    {% for room in rooms  %}
+        <div>
+            <a href={% url 'deleteroom' room.id %}>Delete</a>
+            <h5>{{room.id}} <a href={% url 'rooms' room.id %}>{{room.name}}</a></h5>
+            <span>@{{room.host}}</span>
+            <br>
+            <small>Topic <code>{{room.topic}}</code></small>
+        </div>
+        <hr>
+
+    {% endfor %}
+</div>
 
 {% endblock content %}
