@@ -3,22 +3,59 @@
 {% block title %}Home{% endblock title %}
 
 {% block content %}
+<style>
+    a{
+        text-decoration:none;
+        color:black;
+    }
+    a:hover{
+        color:blue;
+    }
+</style>
 
-<h1>Hello {{request.user}}</h1>
-<hr>
-<a href={% url 'createroom' %}>Create Room</a>
-<div>
-    {% for room in rooms  %}
-        <div>
-            <a href={% url 'deleteroom' room.id %}>Delete</a>
-            <h5>{{room.id}} <a href={% url 'rooms' room.id %}>{{room.name}}</a></h5>
-            <span>@{{room.host}}</span>
-            <br>
-            <small>Topic <code>{{room.topic}}</code></small>
+{% if request.user.is_authenticated %}
+    <h5>Hello {{request.user}}</h5>
+    <hr>
+{% endif %}
+<div class='container-sm'>
+    <div class='row'>
+        <div class='col-3 container-sm '>
+            <h3>TOPICS</h3>
+            <hr>
+            <div class='container-sm'><h6><a href='/'>All</a></h6></div>
+            {% for topic in topics %}
+                <div class='container-sm'><h6><a href={% url 'home' %}?q={{topic.name}}>{{topic.name}}</a></h6></div>
+            {% endfor %}
+
         </div>
-        <hr>
-
-    {% endfor %}
+        <div class='col-6 container-sm'>
+            
+            <div class='container-sm'>
+                <h5 class='text-center'><a href={% url 'createroom' %}>Create Room</a></h5>
+                <h6 class='text-end'>Rooms available {{room_count}}</h6>
+                {% for room in rooms  %}
+                    <div class='container-sm'>
+                        <h2><a id='a' href={% url 'rooms' room.id %}>{{room.name}}</a></h2>
+                        <span >@{{room.host}}</span>
+                        <br>
+                        <small >Topic <code>{{room.topic}}</code></small>
+                    </div>
+                    <hr>
+                {% endfor %}
+            </div>
+        </div>
+        <div class='col-3 container-sm'>
+            <h3>ACTIVITIES</h3>
+            <hr>
+        </div>
+    </div>
 </div>
+
+
+
+
+
+
+
 
 {% endblock content %}

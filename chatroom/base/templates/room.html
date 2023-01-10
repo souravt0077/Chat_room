@@ -7,4 +7,5 @@
 <hr>
 <p>{{rooms.description}}</p>
 <a href={% url 'updateroom' rooms.id%}>Update</a>
+<a href={% url 'deleteroom' rooms.id %}>Delete</a>
 {% endblock content %}
