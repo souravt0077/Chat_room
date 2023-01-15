@@ -1,0 +1,11 @@
+<h4>ACTIVITIES</h4>
+            <hr>
+            {% if request.user.is_authenticated %}
+                {% for message in room_messages %}
+                    <div>
+                        <small>@<a href={% url 'userprofile' message.user.id %}>{{message.user}}</a> {{message.created|timesince}} ago</small>
+                        <small>replied to <b>"{{message.room}}"</b></small>
+                        <div class='col-9 text-center' id='replied'>"<code>{{message}}</code>"</div>
+                    </div>
+                {% endfor %}
+            {% endif %}

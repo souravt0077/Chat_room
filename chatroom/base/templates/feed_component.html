@@ -1,0 +1,13 @@
+<div class='container-sm'>
+    <h5 class='text-center'><a href={% url 'createroom' %}>Create Room</a></h5>
+    <h6 class='text-center'>Rooms available {{room_count}}</h6>
+    {% for room in rooms  %}
+        <div class='container-sm'>
+            <h2><a id='a' href={% url 'rooms' room.id %}>{{room.name}}</a></h2>
+            <span >@<a href={% url 'userprofile' room.host.id %}>{{room.host}}</a></span>
+            <br>
+            <small >Topic <code>{{room.topic}}</code></small>
+        </div>
+        <hr>
+    {% endfor %}
+</div>

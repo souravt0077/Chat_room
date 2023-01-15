@@ -1,0 +1,55 @@
+{% extends 'main.html' %}
+
+{% block title %}Update{% endblock title %}
+
+{% block content %}
+{% if messages %}
+    {% for message in messages %}
+        <div id='message'>
+            <div class="alert alert-warning alert-dismissible fade show" role="alert" >
+                <small class="alert-heading">{{message}}!
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></small>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}
+
+<div class='container-sm text-center'>
+    <p>* You can also change password here..</p>
+    <form method='POST' action='' enctype='multipart/form-data'>
+        {% csrf_token %}
+        <div>
+            <div>
+            <h4>{{form.username.label}}</h4>
+            {{form.username}}
+            </div>
+            <br>
+            <div>
+            <h4>{{form.email.label}}</h4>
+            {{form.email}}
+            </div>
+            <br>
+            <div>
+            <h4>{{form.avatar.label}}</h4>
+            {{form.avatar}}
+            </div>
+            <br>
+            <p><mark>Enter new password here</mark></p>
+            <div>
+            <h4>{{form.password1.label}}</h4>
+            {{form.password1}}
+            </div>
+            <br>
+            <div>
+            <h4>{{form.password2.label}}</h4>
+            {{form.password2}}
+            </div>
+            <br>
+        </div>
+        <br>
+        {% comment %} {{form.as_p}} {% endcomment %}
+        <a href={{request.META.HTTP_REFERER}}>Back</a>
+        <input type='submit' value='upadate'>
+    </form>
+</div>
+{% endblock content %}

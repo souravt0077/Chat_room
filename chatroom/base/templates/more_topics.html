@@ -1,0 +1,22 @@
+{% extends 'main.html' %}
+
+{% block title %}More Topics{% endblock title %}
+
+{% block content %}
+<style>
+    a{
+        text-decoration:none;
+        color:black;
+    }
+    a:hover{
+        color:blue;
+    }
+</style>
+<div class='container-sm text-center'>
+    <h1>TOPICS</h1>
+    <hr>
+    {% for topic in topics %}
+    <div><h4><a href={% url 'home' %}?q={{topic.name}}>{{topic.name}}</a><h4></div>
+    {% endfor %}
+</div>
+{% endblock content %}

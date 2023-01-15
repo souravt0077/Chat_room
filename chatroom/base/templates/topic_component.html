@@ -1,0 +1,9 @@
+<h3>TOPICS</h3>
+            <hr>
+            <div class='container-sm'><h6><a href='/'>All Rooms</a> <b>{{topics.count}}</b></h6></div>
+            {% for topic in topics %}
+                <div class='container-sm'><h6><a href={% url 'home' %}?q={{topic.name}}>{{topic.name}}</a> <b>{{topic.room_set.all.count}}</b></h6></div>
+            {% endfor %}
+            <div class='container-sm ml-2'>
+                <h6><a href={% url 'moretopics' %}>More <i class="bi bi-caret-down-fill"></i></a></h6>
+            </div>

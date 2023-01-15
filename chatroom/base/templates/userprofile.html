@@ -1,0 +1,81 @@
+{% extends 'main.html' %}
+
+{% block title %}{% endblock title %}
+
+{% block content %}
+<style>
+    a{
+        text-decoration:none;
+        color:black;
+    }
+    a:hover{
+        color:blue;
+    }
+    #replied{
+        border:1px solid black;
+        margin-right:20%;
+        margin-left:20%;
+    }
+    #head{
+        border:10px solid green;
+    }
+    #img{
+        border-radious:50%;
+    }
+</style>
+<div class='container-sm text-center pt-3' id='head'>
+    <div>
+        <img id='img' src={{users.avatar.url}} height='100' weight='100'  / >
+    </div>
+    <h1>{{users.username}}
+    {% if request.user.username == users.username %}
+    <a class='btn btn-info' href={% url 'updateuser' %}><i class="bi bi-pencil-square"></i></a>
+    {% endif %}</h1>
+    
+</div>
+<div class='container-sm'>
+    <h3><u>About {{users.username}}</u></h3>
+    <br>
+    <div class='row bg-warning p-2'>
+        <div class='col-4 container-sm'>
+            <h5>Status</h5>
+    <p>{{users.bio}}</p>
+        </div>
+        <div class='col-4 container-sm'>
+            <h5>Mobile</h5>
+    <p>{{users.mobile}}</p>
+        </div>
+        <div class='col-4 container-sm'>
+            <h5>Email</h5>
+            <p>{{users.email}}</p>
+        </div>
+    </div>
+
+    <hr>
+    <div class='row'>
+        <div class='col-3'>
+            {% include 'topic_component.html' %}
+        </div>
+        <div class='col-6'>
+            {% comment %} {% include 'feed_component.html' %} {% endcomment %}
+            <div class='container-sm'>
+                {% comment %} <h5 class='text-center'><a href={% url 'createroom' %}>Create Room</a></h5>
+                <h6 class='text-center'>Rooms available {{rooms_count}}</h6> {% endcomment %}
+                {% for room in rooms  %}
+                    <div class='container-sm'>
+                        <h2><a id='a' href={% url 'rooms' room.id %}>{{room.name}}</a></h2>
+                        <span >@<a href={% url 'userprofile' room.host.id %}>{{room.host}}</a></span>
+                        <br>
+                        <small >Topic <code>{{room.topic}}</code></small>
+                    </div>
+                    <hr>
+                {% endfor %}
+            </div>
+        </div>
+        <div class='col-3'>
+            {% include 'activity_component.html' %}
+        </div>
+    </div>
+
+</div>
+{% endblock content %}
