@@ -11,46 +11,29 @@
     a:hover{
         color:blue;
     }
+    #replied{
+        border:1px solid black;
+        margin-right:20%;
+        margin-left:20%;
+    }
 </style>
-
-{% if request.user.is_authenticated %}
-    <h5>Hello {{request.user}}</h5>
-    <hr>
-{% endif %}
+<br>
 <div class='container-sm'>
     <div class='row'>
         <div class='col-3 container-sm '>
-            <h3>TOPICS</h3>
-            <hr>
-            <div class='container-sm'><h6><a href='/'>All</a></h6></div>
-            {% for topic in topics %}
-                <div class='container-sm'><h6><a href={% url 'home' %}?q={{topic.name}}>{{topic.name}}</a></h6></div>
-            {% endfor %}
-
+            {% include 'topic_component.html' %}
         </div>
         <div class='col-6 container-sm'>
-            
-            <div class='container-sm'>
-                <h5 class='text-center'><a href={% url 'createroom' %}>Create Room</a></h5>
-                <h6 class='text-end'>Rooms available {{room_count}}</h6>
-                {% for room in rooms  %}
-                    <div class='container-sm'>
-                        <h2><a id='a' href={% url 'rooms' room.id %}>{{room.name}}</a></h2>
-                        <span >@{{room.host}}</span>
-                        <br>
-                        <small >Topic <code>{{room.topic}}</code></small>
-                    </div>
-                    <hr>
-                {% endfor %}
-            </div>
+            {% include 'feed_component.html' %}
         </div>
         <div class='col-3 container-sm'>
-            <h3>ACTIVITIES</h3>
-            <hr>
+            {% include 'activity_component.html' %}
         </div>
     </div>
 </div>
-
+<iframe width="560" height="315" src="https://www.youtube.com/embed/NsfEOJk8Aho" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/NsfEOJk8Aho" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/NsfEOJk8Aho" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 
 

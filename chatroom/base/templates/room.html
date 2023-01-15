@@ -3,9 +3,124 @@
 {% block title %}Room{% endblock title %}
 
 {% block content %}
-<h1>{{rooms.name}}</h1>
-<hr>
-<p>{{rooms.description}}</p>
-<a href={% url 'updateroom' rooms.id%}>Update</a>
-<a href={% url 'deleteroom' rooms.id %}>Delete</a>
+<style>
+    a{
+        text-decoration:none;
+        color:black;
+    }
+    a:hover{
+        color:blue;
+    }
+   
+</style>
+
+<div class='container-sm'>
+    <h1>{{rooms.name}}</h1>
+    {% if request.user.username == rooms.host.username %}
+        <a class='btn btn-info' href={% url 'updateroom' rooms.id%}><i class="bi bi-pencil-square"></i></a>
+        <a class='btn btn-danger' href={% url 'deleteroom' rooms.id %}><i class="bi bi-trash3"></i></a>
+    {% endif %}
+    <hr>
+    <h4>About Room</h4>
+    <p>{{rooms.description}}</p>
+
+    <br>
+</div>
+<div class='container-sm'>
+    <div class='row'>
+        <div class='col-8'>
+            {% if request.user.is_authenticated %}
+                    <form  method='POST' action=''>
+                        {% csrf_token %}
+                        <input type='text' class='container-sm p-1' id='msgbox' placeholder='Type here...' name='body' />
+                        {% comment %} <button type='submit'><i class="bi bi-send"></i></button> {% endcomment %}
+                    </form>
+                {% endif %}
+                <br>
+                {% for message in room_messages %}
+                <div>
+                    <small><a href={% url 'userprofile' message.user.id %}>{{message.user}}</a> {% if message.user == rooms.host %}<i class="bi bi-patch-check-fill"></i>{% endif %} {{message.created|timesince}} ago</small>
+                    <h4>{{message.body}}</h4>
+                    <small>{{message.created|date}}</small>
+                    {% if request.user == message.user %}
+                        <a href={% url 'deletemessage' message.id %}><i class="bi bi-trash3"></i></a>
+                    {% endif %}
+                    <hr>
+                </div>
+            {% endfor %}
+        </div>
+        <div class='col-4'>
+            <h4 class='text-center'>Participants</h4>
+            <hr>
+            <div class='text-center'>
+                <ul type='none'>
+                {% for users in participants  %}
+                        <li><a href={% url 'userprofile' users.id %}>{{users.username}}</a></li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div> 
+
+</div>
+
 {% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% comment %} <div>
+    <div class='row'>
+        <div class='col-10 container-sm'>
+            <div class='row'>
+                {% if request.user.is_authenticated %}
+                <div class='col-6 container-sm' id='textbox'>
+                    <form  method='POST' action=''>
+                        {% csrf_token %}
+                        <input type='text' placeholder='Type here...' name='body' />
+                        <button type='submit'><i class="bi bi-send"></i></button>
+                    </form>
+                </div>
+                {% endif %}
+                <br>
+                <div class='col-6 container-sm' >
+                    {% for message in room_messages %}
+                        <div>
+                            <small>{{message.user}} {% if message.user == rooms.host %}<i class="bi bi-patch-check-fill"></i>{% endif %} {{message.created|timesince}} ago</small>
+                            <h4>{{message.body}}</h4>
+                            <small>{{message.created|date}}</small>
+                            {% if request.user == message.user %}
+                                <a href={% url 'deletemessage' message.id %}><i class="bi bi-trash3"></i></a>
+                            {% endif %}
+                            <hr>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class='col-2 container-sm'>
+            <h4>Participants</h4>
+            <hr>
+            <ol type='I'>
+            {% for users in participants  %}
+                    <li>{{users.username}}</li>
+            {% endfor %}
+            </ol>
+        </div>
+    </div>
+</div> {% endcomment %}
