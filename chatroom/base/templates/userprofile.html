@@ -29,7 +29,7 @@
     </div>
     <h1>{{users.username}}
     {% if request.user.username == users.username %}
-    <a class='btn btn-info' href={% url 'updateuser' %}><i class="bi bi-pencil-square"></i></a>
+    <a class='btn btn-sm text-white btn-info' href={% url 'updateuser' %}><i class="bi bi-pencil-square">Update</i></a>
     {% endif %}</h1>
     
 </div>

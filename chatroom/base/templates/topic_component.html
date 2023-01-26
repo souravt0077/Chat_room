@@ -1,6 +1,6 @@
 <h3>TOPICS</h3>
             <hr>
-            <div class='container-sm'><h6><a href='/'>All Rooms</a> <b>{{topics.count}}</b></h6></div>
+            <div class='container-sm'><h6><a href='/'>All Rooms</a></h6></div>
             {% for topic in topics %}
                 <div class='container-sm'><h6><a href={% url 'home' %}?q={{topic.name}}>{{topic.name}}</a> <b>{{topic.room_set.all.count}}</b></h6></div>
             {% endfor %}

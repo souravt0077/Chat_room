@@ -4,8 +4,7 @@
     {% for room in rooms  %}
         <div class='container-sm'>
             <h2><a id='a' href={% url 'rooms' room.id %}>{{room.name}}</a></h2>
-            <span >@<a href={% url 'userprofile' room.host.id %}>{{room.host}}</a></span>
-            <br>
+            <span >@{{room.host}}</span>
             <small >Topic <code>{{room.topic}}</code></small>
         </div>
         <hr>
